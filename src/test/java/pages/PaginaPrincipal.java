@@ -9,7 +9,7 @@ public class PaginaPrincipal extends BasePage {
     
     //Método para navegar a FRT
     public void navigateToFreeRangeTesters() {
-        navigateTo("https://freerangetesters.com");
+        navigateTo("https://www.freerangetesters.com/");
     }
 
 }

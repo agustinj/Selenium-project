@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -13,15 +14,19 @@ public class FreeRangeTest {
 
     @BeforeMethod
     public void setUp() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-search-engine-choice-screen");
+        
+
         //Inicializa el WebDriver para Chrome
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
     }  
 
     @Test
     public void navegamosAFreeRangeTesters() {
         //Navega a la página web
-        driver.get("https://freerangetesters.com");
+        driver.get("https://thefreerangetester.github.io/sandbox-automation-testing/");
     }
 
     @AfterMethod
