@@ -3,6 +3,7 @@ package pages;
 public class PaginaPrincipal extends BasePage {
 
     private String sectionLink = "//a[normalize-space()='%s' and @href]";
+    private String elegirPlanButton = "//a[normalize-space()='Elegir Plan' and @href]";
 
     public PaginaPrincipal() {
         //driver en este caso viene del constructor de la BasePage
@@ -19,6 +20,10 @@ public class PaginaPrincipal extends BasePage {
         //Reemplaza el marcador de posición (%) en sectionLink con el nombre
         String xpathSection = String.format(sectionLink, section);
         clickElement(xpathSection);
+    }
+
+    public void clickOnElegirPlanButton() {
+        clickElement(elegirPlanButton);
     }
 
 }
