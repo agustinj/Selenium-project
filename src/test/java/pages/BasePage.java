@@ -52,13 +52,11 @@ public class BasePage {
 
     public void selectFromDropdownByValue(String locator, String value) {
         Select dropdown = new Select(Find(locator));
-
         dropdown.selectByValue(value);
     }
 
     public void selectFromDropdownByIndex(String locator, Integer index) {
         Select dropdown = new Select(Find(locator));
-
         dropdown.selectByIndex(index);
     }
 
@@ -66,7 +64,6 @@ public class BasePage {
         Select dropdown = new Select(Find(locator));
 
         List<WebElement> dropdownOptions = dropdown.getOptions();
-        
         return dropdownOptions.size();
     }
 

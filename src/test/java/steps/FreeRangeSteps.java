@@ -30,18 +30,19 @@ public class FreeRangeSteps {
         landingPage.clickOnSectionNavigationBar(section);
     }
 
-    @When("I select Elegir Plan")
-    public void selectElegirPlan() {
-        landingPage.clickOnElegirPlanButton();
-    }
-
-    @And("select Introducción al Testing")
+    @And("I select Introduccion al Testing")
     public void navigateToIntro() {
         cursosTestingPage.clickFundamentosTestingLink();
         fundamentosPage.clickIntroduccionTestingLink();
     }
 
-    @Then("I can validate the options in the checkout page")
+    @When("The client selects Elegir Plan")
+    public void selectElegirPlan() {
+        landingPage.clickOnElegirPlanButton();
+    }
+
+
+    @Then("The client can validate the options in the checkout page")
     public void validateCheckoutPlans() {
         List<String> lista = registro.returnPlanDropdownValues();
         List<String> listaEsperada = Arrays.asList("Academia: $16.99 / mes • 13 productos", "Academia: $176 / año • 13 productos", "Free: Gratis • 3 productos");
