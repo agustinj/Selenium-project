@@ -2,6 +2,7 @@ package pages;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 
 import org.openqa.selenium.By;
@@ -39,6 +40,20 @@ public class BasePage {
 
     private WebElement Find(String locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    public String getElementText(String locator) {
+        return Find(locator).getText();
+    }
+
+    public String getLink(String linkText) {
+        try {
+            // Find the link element by link text and return its href attribute
+            return driver.findElement(By.linkText(linkText)).getAttribute("href");
+        } catch (NoSuchElementException e) {
+            System.err.println("Link with text '" + linkText + "' not found.");
+            return null;
+        }
     }
 
     public void clickElement(String locator) {

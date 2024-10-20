@@ -1,16 +1,18 @@
 package pages;
 
-import org.openqa.selenium.By;
-
 public class PaginaSandbox extends BasePage {
 
-    private String infoTextXpath = "//p[contains(text(),'Visita nuestra página en www.freerangetesters.com')]";
+    private String infoTextXpath = "//p[contains(., 'Visita nuestra página en') and contains(., 'www.freerangetesters.com')]";
 
     public PaginaSandbox() {
         super(driver);
     }
 
     public String getInfoText() {
-        return driver.findElement(By.xpath(infoTextExpath)).getText();
+        return getElementText(infoTextXpath);
+    }
+
+    public String getLink() {
+        return getLink("www.freerangetesters.com");
     }
 }

@@ -1,15 +1,18 @@
 package steps;
  
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import io.cucumber.java.en.*;
 import pages.PaginaCursos;
 import pages.PaginaPrincipal;
+import pages.PaginaRecursos;
 import pages.PaginaRegistro;
+import pages.PaginaSandbox;
 import pages.PaginaFundamentosTesting;
  
 public class FreeRangeSteps {
@@ -17,8 +20,10 @@ public class FreeRangeSteps {
  
     PaginaPrincipal landingPage = new PaginaPrincipal();
     PaginaCursos cursosTestingPage = new PaginaCursos();
+    PaginaRecursos recursosPage = new PaginaRecursos();
     PaginaFundamentosTesting fundamentosPage = new PaginaFundamentosTesting();
     PaginaRegistro registro = new PaginaRegistro();
+    PaginaSandbox sandboxPage = new PaginaSandbox();
 
     @Given("I navigate to www.freerangetesters.com")
     public void iNavigateToFRT() {
@@ -41,13 +46,32 @@ public class FreeRangeSteps {
         landingPage.clickOnElegirPlanButton();
     }
 
-
     @Then("The client can validate the options in the checkout page")
     public void validateCheckoutPlans() {
         List<String> lista = registro.returnPlanDropdownValues();
         List<String> listaEsperada = Arrays.asList("Academia: $16.99 / mes • 13 productos", "Academia: $176 / año • 13 productos", "Free: Gratis • 3 productos");
 
-        Assert.assertEquals(listaEsperada, lista);
+        assertEquals(listaEsperada, lista);
     }
- 
+
+    @Given("The user navigates to the Sandbox page")
+    public void userNavigatesToSandbox() {
+        landingPage.navigateToFreeRangeTesters();
+        landingPage.clickOnSectionNavigationBar("Recursos");
+        recursosPage.clickAutomationSandboxLink();
+    } 
+
+    @Then("The user verifies the text displayed is correct")
+    public void verifyTextDisplayed() {
+        String expectedTextDisplayed = "Visita nuestra página en www.freerangetesters.com para obtener más información.";
+        String actualText = sandboxPage.getInfoText();
+        assertEquals(expectedTextDisplayed, actualText);
+    }
+
+    @And("The user verifies the link to FRT")
+    public void verifyLink() {
+        String expectedLink = "https://www.freerangetesters.com/";
+        String actualLink = sandboxPage.getLink();
+        assertEquals(expectedLink, actualLink);
+    }
 }
