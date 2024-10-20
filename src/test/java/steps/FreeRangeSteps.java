@@ -74,4 +74,16 @@ public class FreeRangeSteps {
         String actualLink = sandboxPage.getLink();
         assertEquals(expectedLink, actualLink);
     }
+
+    @Given("The user clicks the dynamic button")
+    public void userClicksOnDynamicButton() {
+        sandboxPage.clickOnElementoOcultoButton();
+    }
+
+    @Then("The user verifies the text is displayed after 3 seconds")
+    public void verifyTextAfter3Seconds() {
+        String expectedText = "OMG, aparezco después de 3 segundos de haber hecho click en el botón 👻.";
+        String actualText = sandboxPage.getTextoElementoOculto();
+        assertEquals(expectedText, actualText);
+    }
 }

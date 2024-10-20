@@ -34,9 +34,10 @@ Scenario: Validate text and link on the Sandbox page
     Then The user verifies the text displayed is correct
     And The user verifies the link to FRT
 
-#   Scenario: Validate the dynamic button
-#     Given the user clicks the dynamic button
-#     Then the user verifies the text "OMG, aparezco después de 3 segundos de haber hecho click en el botón 👻."
+@sandboxValidation
+Scenario: Validate the dynamic button
+    Given The user clicks the dynamic button
+    Then The user verifies the text is displayed after 3 seconds
 
 #   Scenario: Select all checkboxes
 #     Given the user selects all checkboxes
