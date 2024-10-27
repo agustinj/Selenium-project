@@ -39,8 +39,10 @@ Scenario: Validate the dynamic button
     Given The user clicks the dynamic button
     Then The user verifies the text is displayed after 3 seconds
 
-#   Scenario: Select all checkboxes
-#     Given the user selects all checkboxes
+@sandboxValidation
+Scenario: Select all checkboxes
+Given The user selects all checkboxes
+Then The user verifies that all checkboxes are selected
 
 #   Scenario: Select the "No" radio button
 #     Given the user selects the "No" radio button

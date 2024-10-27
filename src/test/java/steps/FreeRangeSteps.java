@@ -1,10 +1,12 @@
 package steps;
  
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
 import io.cucumber.java.en.*;
@@ -85,5 +87,18 @@ public class FreeRangeSteps {
         String expectedText = "OMG, aparezco después de 3 segundos de haber hecho click en el botón 👻.";
         String actualText = sandboxPage.getTextoElementoOculto();
         assertEquals(expectedText, actualText);
+    }
+
+    @Given("The user selects all checkboxes")
+    public void userClicksOnAllCheckboxes() {
+        sandboxPage.selectCheckboxesByIndices(null);
+    }
+
+    @Then("The user verifies that all checkboxes are selected")
+    public void verifyAllCheckboxesChecked() {
+        List<WebElement> checkboxes = sandboxPage.getAllCheckboxes();
+        for (WebElement checkbox : checkboxes) {
+            assertTrue("Checkbox is not selected", checkbox.isSelected());
+        }
     }
 }
