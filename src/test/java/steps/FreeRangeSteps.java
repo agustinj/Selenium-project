@@ -101,4 +101,14 @@ public class FreeRangeSteps {
             assertTrue("Checkbox is not selected", checkbox.isSelected());
         }
     }
+
+    @Given("The user selects the No radio button")
+    public void userSelectRadioButton() {
+        sandboxPage.selectRadioButton("2");
+    }
+
+    @Then("The user verifies that the No radio button is selected")
+    public void verifyRadioButtonNoIsSelected() {
+        sandboxPage.verifyRadioButtonIsEnabled("2");
+    }
 }

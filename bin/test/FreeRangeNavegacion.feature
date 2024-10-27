@@ -44,8 +44,10 @@ Scenario: Select all checkboxes
 Given The user selects all checkboxes
 Then The user verifies that all checkboxes are selected
 
-#   Scenario: Select the "No" radio button
-#     Given the user selects the "No" radio button
+@sandboxValidation
+Scenario: Select the "No" radio button
+Given The user selects the No radio button
+Then The user verifies that the No radio button is selected
 
 #   Scenario: Select a sport from the dropdown and submit
 #     Given the user selects "Basketball" from the sports dropdown

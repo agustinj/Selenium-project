@@ -2,7 +2,9 @@ package pages;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 public class PaginaSandbox extends BasePage {
@@ -54,5 +56,36 @@ public class PaginaSandbox extends BasePage {
 
     public List<WebElement> getAllCheckboxes() {
         return driver.findElements(By.xpath("//input[@type='checkbox']"));
+    }
+    
+    public void selectRadioButton(String labelText) {
+        // Locate the radio button associated with the provided label text
+        WebElement radioButton = driver.findElement(By.xpath("//input[@id='formRadio" + labelText + "']"));
+        
+        // Scroll the radio button into view
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", radioButton);
+    
+        // Use JavaScript to click the radio button
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", radioButton);
+    
+        // Check if the radio button is selected
+        if (!radioButton.isSelected()) {
+            radioButton.click(); // Click to select the radio button if not already selected
+        }
+    }
+
+    public void verifyRadioButtonIsEnabled(String radioButtonValue) {
+        // Locate the radio button using its value
+        // WebElement radioButton = driver.findElement(By.xpath("//input[@type='formRadio' and @value='" + radioButtonValue + "']"));
+        WebElement radioButton = driver.findElement(By.xpath("//input[@id='formRadio" + radioButtonValue + "']"));
+
+        //input[@id='formRadio2']
+
+
+        // Check if the radio button is selected
+        boolean isSelected = radioButton.isSelected();
+
+        // Assert that it is selected
+        Assert.assertTrue("The radio button with value '" + radioButtonValue + "' should be selected.", isSelected);
     }
 }
