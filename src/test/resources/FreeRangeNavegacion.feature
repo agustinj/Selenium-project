@@ -49,19 +49,12 @@ Scenario: Select the "No" radio button
 Given The user selects the No radio button
 Then The user verifies that the No radio button is selected
 
-#   Scenario: Select a sport from the dropdown and submit
-#     Given the user selects "Basketball" from the sports dropdown
-#     And the user clicks "Enviar"
-
-#   Scenario: Select a day from the day of the week dropdown
-#     Given the user selects "Domingo" from the day of the week dropdown
-
-#   Scenario: Validate the pop-up
-#     Given the user clicks "mostrar pop up"
-#     Then the user verifies the pop-up
-#     And the user verifies the text "¿Viste? ¡Apareció un Pop-up!"
-#     And the user clicks the "Cerrar" button
+@sandboxValidation
+Scenario: Validate the pop-up
+Given The user clicks on Mostrar pop up
+Then The user verifies the pop up text
+And I click the Cerrar button
 
 #   Scenario: Validate static table data
 #     Given the user verifies the data in the static table
-    # (Specify which row or column you want to validate)
+#     (Specify which row or column you want to validate)

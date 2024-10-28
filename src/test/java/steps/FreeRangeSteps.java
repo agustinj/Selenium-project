@@ -111,4 +111,24 @@ public class FreeRangeSteps {
     public void verifyRadioButtonNoIsSelected() {
         sandboxPage.verifyRadioButtonIsEnabled("2");
     }
+
+    @Given("The user clicks on Mostrar pop up")
+    public void userClicksOnMostrarPopUp() throws InterruptedException {
+        sandboxPage.clickOnMostrarPopUp();
+        Thread.sleep(5000);
+    }
+
+    @Then("The user verifies the pop up text")
+    public void verifyPopUpText() {
+        String expectedText = "¿Viste? ¡Apareció un Pop-up!";
+        String actualText = sandboxPage.getTextoPopupEjemplo();
+        assertEquals(expectedText, actualText);
+    }
+
+    @And("^(?:I|The user|The client) clicks? the Cerrar button$")
+    public void closePopup() {
+        sandboxPage.clickOnCerrarButton();
+    }
 }
+
+//  @And("^(?:I|The user|The client) selects? Introducción al Testing$")

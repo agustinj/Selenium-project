@@ -12,8 +12,10 @@ public class PaginaSandbox extends BasePage {
     private String infoTextXpath = "//p[contains(., 'Visita nuestra página en') and contains(., 'www.freerangetesters.com')]";
     private String botonOcultoXpath = "//button[contains(text(),'Hacé click para generar un ID dinámico y mostrar el elemento oculto')]";
     private String textoElementoOculto = "//p[contains(text(),'OMG, aparezco después de 3 segundos')]";
-
-
+    private String mostrarPopUp = "//button[contains(text(),'Mostrar popup')]";
+    private String textoPopup = "//p[normalize-space()='¿Viste? ¡Apareció un Pop-up!']";
+    private String cerrarPopup = "//button[contains(text(),'Cerrar')]";
+    
     public PaginaSandbox() {
         super(driver);
     }
@@ -79,13 +81,35 @@ public class PaginaSandbox extends BasePage {
         // WebElement radioButton = driver.findElement(By.xpath("//input[@type='formRadio' and @value='" + radioButtonValue + "']"));
         WebElement radioButton = driver.findElement(By.xpath("//input[@id='formRadio" + radioButtonValue + "']"));
 
-        //input[@id='formRadio2']
-
-
         // Check if the radio button is selected
         boolean isSelected = radioButton.isSelected();
 
         // Assert that it is selected
         Assert.assertTrue("The radio button with value '" + radioButtonValue + "' should be selected.", isSelected);
+    }
+
+
+    public void clickOnMostrarPopUp() {
+        // Locate the mostrar popup button using the XPath defined at the top
+        WebElement mostrarPopUpElement = driver.findElement(By.xpath(mostrarPopUp));
+    
+        // Check if the element is displayed
+        if (mostrarPopUpElement.isDisplayed()) {
+            // Scroll the mostrar popup button into view
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", mostrarPopUpElement);
+            
+            // Use JavaScript to click the button
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", mostrarPopUpElement);
+        } else {
+            System.out.println("Mostrar PopUp button is not visible.");
+        }
+    }
+
+    public String getTextoPopupEjemplo() {
+        return getElementText(textoPopup);
+    }
+
+    public void clickOnCerrarButton() {
+        clickElement(cerrarPopup);
     }
 }
