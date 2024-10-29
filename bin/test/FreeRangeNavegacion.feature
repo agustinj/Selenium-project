@@ -55,6 +55,11 @@ Given The user clicks on Mostrar pop up
 Then The user verifies the pop up text
 And I click the Cerrar button
 
+@sandboxValidation
+Scenario: Verify that the dynamic table contains specific values
+   Given The dynamic table is loaded with values
+   Then The user verifies that all values are present in the table
+
 #   Scenario: Validate static table data
 #     Given the user verifies the data in the static table
 #     (Specify which row or column you want to validate)

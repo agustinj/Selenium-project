@@ -1,5 +1,6 @@
 package pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -112,4 +113,17 @@ public class PaginaSandbox extends BasePage {
     public void clickOnCerrarButton() {
         clickElement(cerrarPopup);
     }
+
+    public List<String> getValuesFromDynamicTable() {
+        List<String> values = new ArrayList<>();
+        List<WebElement> cells = driver.findElements(By.xpath("//h2[normalize-space()='Tabla dinámica']/following-sibling::table[1]/tbody/tr/td"));
+
+        for (WebElement cell : cells) {
+            String cellText = cell.getText().trim(); // Trim whitespace
+            System.out.println("Extracted cell text: '" + cellText + "'");
+            values.add(cellText);
+        }
+        return values;
+    } 
 }
+

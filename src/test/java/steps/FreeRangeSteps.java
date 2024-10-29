@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
@@ -26,6 +27,8 @@ public class FreeRangeSteps {
     PaginaFundamentosTesting fundamentosPage = new PaginaFundamentosTesting();
     PaginaRegistro registro = new PaginaRegistro();
     PaginaSandbox sandboxPage = new PaginaSandbox();
+
+    List<String> dynamicValues;
 
     @Given("I navigate to www.freerangetesters.com")
     public void iNavigateToFRT() {
@@ -115,7 +118,7 @@ public class FreeRangeSteps {
     @Given("The user clicks on Mostrar pop up")
     public void userClicksOnMostrarPopUp() throws InterruptedException {
         sandboxPage.clickOnMostrarPopUp();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
 
     @Then("The user verifies the pop up text")
@@ -129,6 +132,28 @@ public class FreeRangeSteps {
     public void closePopup() {
         sandboxPage.clickOnCerrarButton();
     }
-}
 
-//  @And("^(?:I|The user|The client) selects? Introducción al Testing$")
+    @Given("The dynamic table is loaded with values")
+    public void theTableContainsTheFollowingValues() {
+        // Convertir la tabla de datos a una lista de cadenas
+        dynamicValues = sandboxPage.getValuesFromDynamicTable();
+    }
+
+    @Then("The user verifies that all values are present in the table")
+    public void verifyTableContents() {
+        // Obtener los valores actuales de la tabla dinámica
+        List<String> actualValues = sandboxPage.getValuesFromDynamicTable();
+    
+        // Definir el patrón esperado para validar cada valor
+        Pattern pattern = Pattern.compile("^[A-Z][0-9]$");
+    
+        // Verificar cada valor de la tabla y mostrar contenido para depuración
+        for (String value : actualValues) {
+            System.out.println("Checking cell value: '" + value + "'");
+            
+            // Validar el formato de cada valor
+            assertTrue("The value '" + value + "' does not follow the required format.", 
+                       pattern.matcher(value).matches());
+        }
+    }
+}
