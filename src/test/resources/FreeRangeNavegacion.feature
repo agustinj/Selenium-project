@@ -60,6 +60,10 @@ Scenario: Verify that the dynamic table contains specific values
    Given The dynamic table is loaded with values
    Then The user verifies that all values are present in the table
 
-#   Scenario: Validate static table data
-#     Given the user verifies the data in the static table
-#     (Specify which row or column you want to validate)
+@sandboxValidation
+Scenario: Validate static table data
+    Given The following expected data:
+        | 1  | Messi  | 35   | messi@example.com    |
+        | 2  | Ronaldo| 38   | ronaldo@example.com  |
+        | 3  | Mbappe | 24   | mbappe@example.com   |
+    Then Verify it matches the info on the page

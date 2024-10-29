@@ -124,6 +124,22 @@ public class PaginaSandbox extends BasePage {
             values.add(cellText);
         }
         return values;
-    } 
+    }
+
+    public List<List<String>> getStaticTableData() {
+        List<List<String>> data = new ArrayList<>();
+        List<WebElement> rows = driver.findElements(By.xpath("//h2[normalize-space()='Tabla estática']/following-sibling::table/tbody/tr")); // Adjust the XPath as necessary
+    
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            List<String> rowData = new ArrayList<>();
+    
+            for (WebElement cell : cells) {
+                rowData.add(cell.getText());
+            }
+            data.add(rowData);
+        }
+        return data;
+    }
 }
 

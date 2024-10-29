@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import pages.PaginaCursos;
 import pages.PaginaPrincipal;
@@ -29,6 +30,7 @@ public class FreeRangeSteps {
     PaginaSandbox sandboxPage = new PaginaSandbox();
 
     List<String> dynamicValues;
+    List<List<String>> staticExpectedValues;
 
     @Given("I navigate to www.freerangetesters.com")
     public void iNavigateToFRT() {
@@ -154,6 +156,23 @@ public class FreeRangeSteps {
             // Validar el formato de cada valor
             assertTrue("The value '" + value + "' does not follow the required format.", 
                        pattern.matcher(value).matches());
+        }
+    }
+
+    @Given("The following expected data:")
+    public void staticTableExpectedData(DataTable dataTable) {
+        // Convert the data table to a list of arrays
+        staticExpectedValues = dataTable.asLists(String.class);
+    }
+
+    @Then("Verify it matches the info on the page")
+    public void verifyStaticTableMatches() {
+        List<List<String>> actualData = sandboxPage.getStaticTableData();
+
+        for (int i = 0; i < staticExpectedValues.size(); i++) {
+            List<String> expectedRow = staticExpectedValues.get(i);
+            List<String> actualRow = actualData.get(i);
+            assertEquals("Row " + (i + 1) + " does not match.", expectedRow, actualRow);
         }
     }
 }
