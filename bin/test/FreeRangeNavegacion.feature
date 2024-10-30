@@ -63,7 +63,9 @@ Scenario: Verify that the dynamic table contains specific values
 @sandboxValidation
 Scenario: Validate static table data
     Given The following expected data:
+        | ID | Nombre | Edad | Email                |
         | 1  | Messi  | 35   | messi@example.com    |
         | 2  | Ronaldo| 38   | ronaldo@example.com  |
         | 3  | Mbappe | 24   | mbappe@example.com   |
-    Then Verify it matches the info on the page
+    Then Verify the table headers are correct
+    And Verify it matches the info on the page

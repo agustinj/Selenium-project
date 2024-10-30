@@ -141,5 +141,19 @@ public class PaginaSandbox extends BasePage {
         }
         return data;
     }
+
+    public void verifyTableHeadersAreCorrect(List<String> expectedHeaders) {
+        // Create a list to hold actual header values
+        List<String> actualHeaders = new ArrayList<>();
+        
+        // Fetch header elements using the relative XPath
+        for (String header : expectedHeaders) {
+            WebElement headerElement = driver.findElement(By.xpath("//th[normalize-space()='" + header + "']"));
+            actualHeaders.add(headerElement.getText());
+        }
+        
+        // Check that the actual headers match the expected headers
+        Assert.assertEquals("Headers do not match!", expectedHeaders, actualHeaders);
+    }
 }
 

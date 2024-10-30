@@ -30,7 +30,7 @@ public class FreeRangeSteps {
     PaginaSandbox sandboxPage = new PaginaSandbox();
 
     List<String> dynamicValues;
-    List<List<String>> staticExpectedValues;
+    List<List<String>> staticTableExpectedData;
 
     @Given("I navigate to www.freerangetesters.com")
     public void iNavigateToFRT() {
@@ -160,19 +160,28 @@ public class FreeRangeSteps {
     }
 
     @Given("The following expected data:")
-    public void staticTableExpectedData(DataTable dataTable) {
-        // Convert the data table to a list of arrays
-        staticExpectedValues = dataTable.asLists(String.class);
+    public void theFollowingExpectedData(DataTable dataTable) {
+        // Convertir la tabla de datos a una lista de cadenas
+        staticTableExpectedData = dataTable.asLists(String.class);
     }
 
-    @Then("Verify it matches the info on the page")
+    @Then("Verify the table headers are correct")
+    public void verifyTheTableHeadersAreCorrect() {
+        // Capture headers from the expected data (the first row)
+        List<String> headers = staticTableExpectedData.get(0);
+        sandboxPage.verifyTableHeadersAreCorrect(headers); // Call the header validation method
+    }
+
+    @And("Verify it matches the info on the page")
     public void verifyStaticTableMatches() {
         List<List<String>> actualData = sandboxPage.getStaticTableData();
-
-        for (int i = 0; i < staticExpectedValues.size(); i++) {
-            List<String> expectedRow = staticExpectedValues.get(i);
-            List<String> actualRow = actualData.get(i);
-            assertEquals("Row " + (i + 1) + " does not match.", expectedRow, actualRow);
+    
+        // Iterar sobre los datos comenzando desde la fila 1 para omitir los encabezados
+        for (int i = 1; i < staticTableExpectedData.size(); i++) {
+            List<String> expectedRow = staticTableExpectedData.get(i);
+            List<String> actualRow = actualData.get(i - 1); // Restar 1 porque estamos omitiendo la fila de encabezados
+            
+            assertEquals("Row " + i + " does not match.", expectedRow, actualRow);
         }
     }
 }
